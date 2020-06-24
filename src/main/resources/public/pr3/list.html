@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Панель управления | Проекты</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div th:insert="~{styles :: styles}"></div>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <div th:insert="~{topbar :: topbar}"></div>
+    <div th:insert="~{sidebar :: sidebar(${activeMenu}, ${hasParent})}"></div>
+    <!-- Content Wrapper. Contains page page -->
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Список разработчиков</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                            <li class="breadcrumb-item">Практическая работа №3</li>
+                            <li class="breadcrumb-item active">Список разработчиков</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main page -->
+        <section class="content">
+            <!-- Default box -->
+            <div class="row form-group" th:if="${success_msg}">
+                <div class="col-12 col-md-12">
+                    <div class="alert alert-success" role="alert" th:text="${success_msg}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row form-group" th:if="${error_msg}">
+                <div class="col-12 col-md-12">
+                    <div class="alert alert-danger" role="alert" th:text="${error_msg}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Список разработчиков</h3>
+
+                    <div class="card-tools">
+                        <a href="/pr3/create"
+                           class="btn btn-success btn-sm" title="Создать" style="margin-right: 15px;">
+                            <i class="fas fa-plus"></i> Создать
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-striped projects">
+                        <thead>
+                        <tr>
+                            <th>
+                                Номер
+                            </th>
+                            <th>
+                                Имя
+                            </th>
+                            <th>
+                                Должность
+                            </th>
+                            <th>
+                                № отдела
+                            </th>
+                            <th style="width: 380px; text-align: left;">
+
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="4"><input type="text" style="width: 50px;"></td>
+                            <td style="width: 380px; text-align: right;">
+                                <a href=""
+                                   class="btn btn-info btn-sm" title="Просмотреть">
+                                    <i class="fas fa-tools"></i>
+                                    Просмотреть
+                                </a>
+                                <a href=""
+                                   class="btn btn-success btn-sm" title="Редактировать">
+                                    <i class="fas fa-tools"></i>
+                                    Редактировать
+                                </a>
+                                <a href="" class="btn btn-danger btn-sm" title="Удалить">
+                                    <i class="fas fa-trash"></i>
+                                    Удалить
+                                </a>
+                            </td>
+                        </tr>
+                        <tr th:each="emp: ${emps}">
+                            <td th:text="${emp.empno}"></td>
+                            <td th:text="${emp.ename}"></td>
+                            <td th:text="${emp.job}"></td>
+                            <td th:text="${emp.deptno}"></td>
+                            <td style="width: 380px; text-align: right;">
+                                <a th:href="@{'/pr3/view/' + ${emp.empno}}"
+                                   class="btn btn-info btn-sm" title="Просмотреть">
+                                    <i class="fas fa-tools"></i>
+                                    Просмотреть
+                                </a>
+                                <a th:href="@{'/pr3/edit/' + ${emp.empno}}"
+                                   class="btn btn-success btn-sm" title="Редактировать">
+                                    <i class="fas fa-tools"></i>
+                                    Редактировать
+                                </a>
+                                <a th:href="@{'/pr3/delete/' + ${emp.empno}}" class="btn btn-danger btn-sm" title="Удалить">
+                                    <i class="fas fa-trash"></i>
+                                    Удалить
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+        </section>
+        <!-- /.page -->
+    </div>
+    <!-- /.page-wrapper -->
+
+        <div th:insert="~{footer :: footer}"></div>
+</div>
+<div class="modal fade" id="xml-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="xml-modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <pre lang="xml" id="xml-modal-body"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{scripts :: scripts}"></div>
+<script>
+    $(document).on("click", ".show-original, .show-result", function () {
+            $("#xml-modal").modal('show');
+            $("#xml-modal-title").html($(this).attr("data-file"));
+            var formData = new FormData();
+            formData.append('xml-action', $(this).attr("data-action"));
+            formData.append('filename', $(this).attr("data-file"));
+
+            $.ajax({
+                url: "/pr1/listing",
+                type: "POST",
+                data: formData,
+                dataType: "text",
+                success: 	function (data) {
+                    $("#xml-modal-body").text(data);
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+
+            return false;
+        });
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Панель управления | Проекты</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div th:insert="~{styles :: styles}"></div>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <div th:insert="~{topbar :: topbar}"></div>
+    <div th:insert="~{sidebar :: sidebar(${activeMenu}, ${hasParent})}"></div>
+    <!-- Content Wrapper. Contains page page -->
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Просмотр данных разработчика</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                            <li class="breadcrumb-item">Практическая работа №3</li>
+                            <li class="breadcrumb-item active">Просмотр</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main page -->
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Окно просмотра</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="empno">Номер</label>
+                                            <span th:text="${emp.empno}"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="ename">Имя</label>
+                                            <span th:text="${emp.ename}"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="job">Должность</label>
+                                            <span th:text="${emp.job}"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="hiredate">Дата найма</label>
+                                            <span th:text="${emp.hiredate}"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="sal">Зарплата</label>
+                                            <span th:text="${emp.sal}"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="comm">Комиссионные</label>
+                                            <span th:text="${emp.comm}"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="deptno">Номер отдела</label>
+                                            <span th:text="${emp.deptno}"></span>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- /.card -->
+                            <div class="col-md-2">
+                                <a href="/pr3/list" class="btn btn-info btn-width">К списку</a>
+                            </div>
+                        </div>
+                </div>
+                <!-- /.col -->
+            </div>
+
+        </section>
+        <!-- /.page -->
+    </div>
+    <!-- /.page-wrapper -->
+
+        <div th:insert="~{footer :: footer}"></div>
+</div>
+<div th:insert="~{scripts :: scripts}"></div>
+</body>
+</html>

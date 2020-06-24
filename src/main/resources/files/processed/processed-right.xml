@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<group>
+    <students firstname="Peter" lastname="Penn" groupnumber="IT-01">
+        <subjects title="Arithmetic" mark="4"/>
+        <subjects title="History" mark="5"/>
+        <subjects title="Geography" mark="3"/>
+        <subjects title="English" mark="4"/>
+        <Average>4.0</Average>
+    </students>
+    <students firstname="Luke" lastname="Skywalker" groupnumber="IT-01">
+        <subjects title="Arithmetic" mark="4"/>
+        <subjects title="History" mark="3"/>
+        <subjects title="Geography" mark="3"/>
+        <subjects title="English" mark="4"/>
+        <Average>3.5</Average>
+    </students>
+</group>

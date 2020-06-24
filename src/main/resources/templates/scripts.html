@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="scripts">
+    <!-- jQuery -->
+    <script th:src="@{/assets/plugins/jquery/jquery.min.js}"></script>
+    <!-- Bootstrap 4 -->
+    <script th:src="@{/assets/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <!-- AdminLTE App -->
+    <script th:src="@{/assets/dist/js/adminlte.min.js}"></script>
+    <!-- Highlight SQl code -->
+    <script th:src="@{/assets/plugins/rainbow/rainbow-custom.min.js}"></script>
+
+    <!--<script src="/assets/plugins/moment/moment.min.js"></script>-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
+    <script type="text/javascript" th:src="@{/assets/plugins/daterangepicker/daterangepicker.js}"></script>
+
+    <!--
+    <script th:src="@{/assets/plugins/lightbox/js/lightbox-plus-jquery.min.js}"></script>
+    <script>
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true
+        })
+    </script>
+    -->
+</div>
+
+</body>
+
+</html>

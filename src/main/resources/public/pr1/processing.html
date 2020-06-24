@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Панель управления | Проекты</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div th:insert="~{styles :: styles}"></div>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <div th:insert="~{topbar :: topbar}"></div>
+    <div th:insert="~{sidebar :: sidebar(${activeMenu}, ${hasParent})}"></div>
+    <!-- Content Wrapper. Contains page page -->
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Обработка XML-файлов</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                            <li class="breadcrumb-item">Практическая работа №1</li>
+                            <li class="breadcrumb-item active">Обработка XML-файлов</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main page -->
+        <section class="content">
+            <!-- Default box -->
+
+            <div class="row form-group" th:if="${success_msg}">
+                <div class="col-12 col-md-12">
+                    <div class="alert alert-success" role="alert" th:text="${success_msg}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row form-group" th:if="${error_msg}">
+                <div class="col-12 col-md-12">
+                    <div class="alert alert-danger" role="alert" th:text="${error_msg}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Список файлов</h3>
+
+                    <div class="card-tools">
+                        <a href="/pr1/upload"
+                           class="btn btn-success btn-sm" title="Создать" style="margin-right: 18px;">
+                            <i class="fas fa-upload"></i> Загрузить файл
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-striped projects">
+                        <thead>
+                        <tr>
+                            <th>
+                                Исходный файл
+                            </th>
+                            <th>
+                                Результат обработки
+                            </th>
+                            <th style="width: 470px; text-align: right;">
+
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="file: ${files}">
+                            <td><a href="#" class="show-original" data-action="show-original" th:data-file="${file[0]}" th:text="${file[0]}"></a></td>
+                            <td><a href="#" class="show-result" data-action="show-result" th:data-file="${file[0]}" th:text="${file[1]}"></a></td>
+                            <td style="width: 470px; text-align: left;">
+                                <a th:href="@{'/pr1/parse-dom/' + ${file[0]}}"
+                                   class="btn btn-info btn-sm" title="Обработать XML">
+                                    <i class="fas fa-tools"></i>
+                                    Обработать XML
+                                </a>
+                                <a th:href="@{'/pr1/delete/' + ${file[0]}}" class="btn btn-danger btn-sm" title="Удалить исходник">
+                                    <i class="fas fa-trash"></i>
+                                    Удалить исходник
+                                </a>
+                                <a  th:if= "${file[1] != ''}" th:href="@{'/pr1/delete-result/' + ${file[0]}}" class="btn btn-danger btn-sm" title="Удалить результат">
+                                    <i class="fas fa-trash"></i>
+                                    Удалить результат
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+        </section>
+        <!-- /.page -->
+    </div>
+    <!-- /.page-wrapper -->
+
+        <div th:insert="~{footer :: footer}"></div>
+</div>
+<div class="modal fade" id="xml-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="xml-modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <pre lang="xml" id="xml-modal-body"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{scripts :: scripts}"></div>
+<script>
+    $(document).on("click", ".show-original, .show-result", function () {
+            $("#xml-modal").modal('show');
+            $("#xml-modal-title").html($(this).attr("data-file"));
+            var formData = new FormData();
+            formData.append('xml-action', $(this).attr("data-action"));
+            formData.append('filename', $(this).attr("data-file"));
+
+            $.ajax({
+                url: "/pr1/listing",
+                type: "POST",
+                data: formData,
+                dataType: "text",
+                success: 	function (data) {
+                    $("#xml-modal-body").text(data);
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+
+            return false;
+        });
+</script>
+</body>
+</html>

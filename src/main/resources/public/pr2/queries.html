@@ -1,0 +1,439 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Панель управления | Проекты</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div th:insert="~{styles :: styles}"></div>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <div th:insert="~{topbar :: topbar}"></div>
+    <div th:insert="~{sidebar :: sidebar(${activeMenu}, ${hasParent})}"></div>
+
+    <!-- Content Wrapper. Contains page page -->
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Практическая работа №2</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                            <li class="breadcrumb-item">Практическая работа №2</li>
+                            <li class="breadcrumb-item active">SQL-запросы</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main page -->
+        <section class="content">
+            <div class="row">
+                <div class="col-12">
+                    <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">SQL-запросы</h3>
+
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query1">Запрос №1:</label>
+                                                <p>Сформировать запрос, выводящий всю информацию из таблицы DEPT</p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT * from DEPT</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="1">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="1" id="btn_clear_query1">Очистить</button>
+                                                    <table id="query_result1" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query2">Запрос №2:</label>
+                                                <p>
+                                                    Сформировать запрос, выводящий 2 столбца информации:<br>
+                                                    1) фамилию работника и, через запятую, его должность;<br>
+                                                    2) его зарплату за год
+                                                </p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT (ENAME || ',' || JOB) as NAME_JOB, (SAL*12) as YEAR_SAL from EMP</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="2">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="2" id="btn_clear_query2">Очистить</button>
+                                                    <table id="query_result2" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query3">Запрос №3:</label>
+                                                <p>Сформировать запрос, выводящий фамилию и зарплату работников, зарплата которых
+                                                    лежит вне диапазона от 1500$ до 2850$, отсортированных по фамилии работника.</p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT ENAME, SAL from EMP WHERE SAL NOT BETWEEN 1500 AND 2800 ORDER BY ENAME ASC</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="3">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="3" id="btn_clear_query3">Очистить</button>
+                                                    <table id="query_result3" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query4">Запрос №4:</label>
+                                                <p>Сформировать запрос, выводящий для каждого работника количество месяцев,
+                                                    прошедшее с момента найма. Количество месяцев округлить до ближайшего целого,
+                                                    отсортировать по сроку работы.
+                                                </p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT ENAME, ROUND(MONTHS_BETWEEN(current_date,HIREDATE)) AS MONTHES from EMP ORDER BY HIREDATE ASC</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="4">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="4" id="btn_clear_query4">Очистить</button>
+                                                    <table id="query_result4" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query5">Запрос №5:</label>
+                                                <p>Сформировать запрос, выводящий фамилию служащего и его комиссионные. В случае
+                                                    отсутствия комиссионных в столбце должно быть выведено “No commissions”.
+                                                </p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT ENAME, NVL(TO_CHAR(COMM), 'NO COMMISSIONS') as COMMISSIONS from EMP</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="5">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="5" id="btn_clear_query5">Очистить</button>
+                                                    <table id="query_result5" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query6">Запрос №6:</label>
+                                                <p>Сформировать запрос, выводящий список должностей (уникальных) в подразделении 30.</p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT DISTINCT JOB from EMP WHERE DEPTNO='30'</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="6">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="6" id="btn_clear_query6">Очистить</button>
+                                                    <table id="query_result6" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query7">Запрос №7:</label>
+                                                <p>Сформировать запрос, выводящий фамилию, должность, номер подразделения, всех
+                                                    работников, работающих в городе Dallas.
+                                                </p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT E.ENAME AS NAME, E.JOB AS JOB, E.DEPTNO AS DEPTNO from EMP E INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO WHERE D.LOC = 'DALLAS'</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="7">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="7" id="btn_clear_query7">Очистить</button>
+                                                    <table id="query_result7" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query8">Запрос №8:</label>
+                                                <p>Сформировать запрос, выводящий фамилию и номер работника, а также фамилию и
+                                                    номер его менеджера, включая работников, не имеющих менеджеров.
+                                                </p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT E.ENAME AS EMPNAME, E.EMPNO AS EMPNO, E2.ENAME AS MANAGERNAME, E2.EMPNO AS MANAGERNO from EMP E LEFT JOIN EMP E2 ON E.MGR = E2.EMPNO</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="8">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="8" id="btn_clear_query8">Очистить</button>
+                                                    <table id="query_result8" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query9">Запрос №9:</label>
+                                                <p>Сформировать запрос, выводящий фамилию работника, его подразделение, зарплату, и
+                                                    разряд ЕТС.
+                                                </p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT E.ENAME AS ENAME, E.DEPTNO AS DEPTNO, E.SAL AS SAL, (SELECT GRADE FROM SALGRADE WHERE E.SAL BETWEEN MINSAL AND HISAL) AS GRADE from EMP E</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="9">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="9" id="btn_clear_query9">Очистить</button>
+                                                    <table id="query_result9" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query10">Запрос №10:</label>
+                                                <p>Сформировать запрос, выводящий минимальную, среднюю, максимальную и суммарную
+                                                    зарплату всех работников.</p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT MIN(E.SAL) AS MINSAL, MAX(E.SAL) AS MAXSAL, AVG(E.SAL) AS AVGSAL, SUM(E.SAL) AS SUMSAL  FROM EMP E</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="10">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="10" id="btn_clear_query10">Очистить</button>
+                                                    <table id="query_result10" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query11">Запрос №11:</label>
+                                                <p>Сформировать запрос, выводящий номера менеджеров и самую низкую зарплату среди
+                                                    подчиненных этих менеджеров, исключая менеджеров, для которых данное число менее
+                                                    1000$</p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT E1.EMPNO AS EMPNO, MAX(E2.SAL) AS SALARY  FROM EMP E1 JOIN EMP E2 ON E1.EMPNO = E2.MGR GROUP BY E1.EMPNO HAVING MAX(E2.SAL)>=1000</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="11">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="11" id="btn_clear_query11">Очистить</button>
+                                                    <table id="query_result11" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query12">Запрос №12:</label>
+                                                <p>Сформировать запрос, выводящий номера и фамилии всех сотрудников, зарплата
+                                                    которых выше средней.
+                                                </p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT DEPTNO, ENAME FROM EMP WHERE SAL>(SELECT AVG(SAL) from EMP)</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="12">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="12" id="btn_clear_query12">Очистить</button>
+                                                    <table id="query_result12" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query13">Запрос №13:</label>
+                                                <p>Сформировать запрос, выводящий фамилию, номер подразделения и зарплату
+                                                    работников, чьи номер подразделения и зарплата совпадают (одновременно) с номером
+                                                    подразделения и зарплатой любого из работников, получающих комиссионные.</p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT DISTINCT E1.ENAME AS ENAME, E1.DEPTNO AS DEPTNO, E1.SAL AS SAL FROM EMP E1 JOIN EMP E2 ON E1.SAL = E2.SAL AND E1.DEPTNO = E2.DEPTNO AND E1.ENAME &#60;&#62; E2.ENAME  WHERE  E1.COMM IS NOT NULL </code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="13">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="13" id="btn_clear_query13">Очистить</button>
+                                                    <table id="query_result13" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query14">Запрос №14:</label>
+                                                <p>Сформировать запрос, выводящий информацию о работниках, зарплата которых больше
+                                                    зарплаты любого из клерков.
+                                                </p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT EMPNO, ENAME, JOB, DEPTNO, SAL FROM EMP WHERE SAL>(SELECT MAX(SAL) from EMP WHERE JOB = 'CLERK')</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="14">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="14" id="btn_clear_query14">Очистить</button>
+                                                    <table id="query_result14" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query15">Запрос №15:</label>
+                                                <p>Сформировать запрос, выводящий структуру подчинённости работников. Структура
+                                                    должна быть представлена в виде дерева, каждый уровень вложенности которого отступает
+                                                    от предыдущего на 5 пробельных символов вправо.</p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT (lpad(' ', 5*(level-1))|| ENAME) AS ENAME, (lpad(' ', 5*(level-1))|| JOB) AS JOB FROM EMP START WITH MGR IS NULL CONNECT BY PRIOR EMPNO = MGR</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="15">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="15" id="btn_clear_query15">Очистить</button>
+                                                    <table id="query_result15" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query16">Запрос №16:</label>
+                                                <p>Сформировать запрос, выводящий уровень вложенности в структуре подчинённости
+                                                    работников, имя и должность работников, зарплата которых ниже средней. Отсортировать по
+                                                    имени сотрудников в пределах уровня, в который они входят.</p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT (lpad(' ', 5*(level-1))|| ENAME) AS EMPNAME, (lpad(' ', 5*(level-1))|| JOB) AS JOB, (lpad(' ', 5*(level-1))|| SAL) AS SAL FROM EMP WHERE SAL>(SELECT AVG(SAL) from EMP) START WITH MGR IS NULL CONNECT BY PRIOR EMPNO = MGR ORDER SIBLINGS BY ENAME</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="16">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="16" id="btn_clear_query16">Очистить</button>
+                                                    <table id="query_result16" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="query17">Запрос №17:</label>
+                                                <p>Сформировать запрос, выводящий всех работников, находящихся ниже по иерархии, чем
+                                                    JONES. Результат представить в виде пути от JONES до текущего элемента
+                                                    (/JONES/SCOTT/ADAMS).</p>
+                                                <div>
+                                                    <pre>
+                                                        <code data-language="sql">SELECT SYS_CONNECT_BY_PATH(ENAME, '/') AS EMPNAME FROM EMP START WITH EMPNO = '7566' CONNECT BY PRIOR EMPNO = MGR</code>
+                                                    </pre>
+                                                    <button role="button" class="btn btn-success make-query" data-id="17">Выполнить</button>
+                                                    <button role="button" class="btn btn-danger hide clear-query" data-id="17" id="btn_clear_query17">Очистить</button>
+                                                    <table id="query_result17" class="hide table table-striped mt-5"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                    </form>
+                </div>
+                <!-- /.col -->
+            </div>
+
+        </section>
+        <!-- /.page -->
+    </div>
+    <!-- /.page-wrapper -->
+
+        <div th:insert="~{footer :: footer}"></div>
+</div>
+<div th:insert="~{scripts :: scripts}"></div>
+<script>
+    $(document).ready(function(){
+        $(".clear-query").hide();
+    });
+    var list;
+    $(document).on("click", ".make-query", function () {
+        var formData = new FormData();
+        var qid = $(this).attr("data-id");
+        $.ajax({
+            url: "/pr2/query"+qid,
+            type: "POST",
+            data: formData,
+            dataType: "text",
+            success: 	function (data) {
+                console.log(data);
+                list = $.parseJSON(data);
+                $("#query_result"+qid).html('');
+                constructTable("#query_result"+qid);
+                $("#query_result"+qid).show();
+                $("#btn_clear_query"+qid).show();
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+
+        return false;
+    });
+
+    $(document).on("click", ".clear-query", function () {
+        var qid = $(this).attr("data-id");
+        $("#query_result" + qid).html('');
+        $("#btn_clear_query"+qid).hide();
+        return false;
+    });
+
+    function constructTable(selector) {
+
+        // Getting the all column names
+        var cols = Headers(list, selector);
+
+        // Traversing the JSON data
+        for (var i = 0; i < list.length; i++) {
+            var row = $('<tr/>');
+            for (var colIndex = 0; colIndex < cols.length; colIndex++)
+            {
+                var val = list[i][cols[colIndex]];
+
+                // If there is any key, which is matching
+                // with the column name
+                if (val == null) val = "";
+                console.log("|"+val+"|");
+                val = '<pre class="td_inner">'+val+'</pre>';
+                row.append($('<td/>').html(val));
+            }
+
+            // Adding each row to the table
+            $(selector).append(row);
+        }
+    }
+
+    function Headers(list, selector) {
+        var columns = [];
+        var header = $('<tr/>');
+
+        for (var i = 0; i < list.length; i++) {
+            var row = list[i];
+
+            for (var k in row) {
+                if ($.inArray(k, columns) == -1) {
+                    columns.push(k);
+
+                    // Creating the header
+                    header.append($('<th/>').html(k));
+                }
+            }
+        }
+
+        // Appending the header to the table
+        $(selector).append(header);
+        return columns;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE group [
+        <!ELEMENT group (student*)>
+        <!ELEMENT student (subject*,average?)>
+        <!ATTLIST student
+                firstname CDATA #REQUIRED
+                lastname CDATA #REQUIRED
+                groupnumber CDATA #REQUIRED
+                >
+        <!ELEMENT subject EMPTY>
+        <!ATTLIST subject
+                title CDATA #REQUIRED
+                mark (1|2|3|4|5) #REQUIRED
+                >
+        <!ELEMENT average (#PCDATA)>
+        ]>
+<group>
+    <student firstname="Peter" lastname="Penn" groupnumber="IT-01">
+        <subject2 title="Arithmetic" mark="4"/>
+        <subject title="History" mark="5"/>
+        <subject title="English" mark="4"/>
+        <average>2.5</average>
+    </student>
+    <student2 firstname="Luke" lastname="Skywalker" groupnumber="IT-01">
+        <subject title="Arithmetic" mark="4"/>
+        <subject title="History" mark="5"/>
+        <subject title="Geography" mark="3"/>
+        <subject title="English" mark="4"/>
+        <average>4.3</average>
+    </student2>
+</group>
